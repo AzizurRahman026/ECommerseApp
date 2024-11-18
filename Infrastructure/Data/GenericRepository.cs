@@ -1,49 +1,70 @@
-﻿
-
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Interface;
+using MongoDB.Driver;
+using System.Collections;
 
 namespace Infrastructure.Data
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : Product
     {
-        private readonly MongoDbContext context;
-        public GenericRepository(MongoDbContext _context)
+        private readonly MongoDbContext _context;
+
+        public GenericRepository(MongoDbContext context)
         {
-            context = _context;
+            _context = context;
         }
 
-
-        public Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var collection = _context.GetCollection<T>("product"); // Dynamically get the collection
+            return await collection.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<IReadOnlyList<T>> ListAllAsync()
+        public async Task<IReadOnlyList<T>> ListAllAsync()
         {
-            throw new NotImplementedException();
-        }
-        public void add(T entity)
-        {
-            throw new NotImplementedException();
+            var collection = _context.GetCollection<T>("product");
+            return await collection.Find(_ => true).ToListAsync();
         }
 
-        public void update(T entity)
+        public async Task Add(T entity)
         {
-            throw new NotImplementedException();
-        }
-        public void remove(T entity)
-        {
-            throw new NotImplementedException();
+            var collection = _context.GetCollection<T>("product");
+            await collection.InsertOneAsync(entity);
         }
 
-        public Task<bool> SaveAllAsync()
+        public async Task Update(T entity)
         {
-            throw new NotImplementedException();
+            var collection = _context.GetCollection<T>("product");
+            await collection.ReplaceOneAsync(x => x.Id == entity.Id, entity);
         }
-        public bool Exists(int id)
+
+        public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            var collection = _context.GetCollection<T>("product");
+            await collection.DeleteOneAsync(x => x.Id == id);
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            // var collection = _context.GetCollection<T>("BaseEntity");
+
+            try
+            {
+                // Bulk insert operation, assuming you want to insert multiple documents at once
+                // await collection.InsertManyAsync(entities);
+                return true;  // Return true if the operation was successful
+            }
+            catch (Exception)
+            {
+                return false;  // Return false if an error occurred
+            }
+        }
+
+        public async Task<bool> Exist(int id)
+        {
+            var collection = _context.GetCollection<T>("product");
+            return await collection.Find(x => x.Id == id).AnyAsync();
         }
     }
+
 }

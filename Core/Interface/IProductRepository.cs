@@ -4,6 +4,7 @@ namespace Core.Interface
 {
     public interface IProductRepository
     {
+        
         string Root();
         Task<List<Product>?> GetProducts(string? brand, string? type, string? sort);
         Task<Product?> GetProductById(int id);

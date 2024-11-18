@@ -13,5 +13,11 @@ namespace Infrastructure.Data
             _database = client.GetDatabase(databaseName);
         }
         public IMongoCollection<Product> product => _database.GetCollection<Product>("product");
+        // Generic method to get a collection based on type
+        public IMongoCollection<T> GetCollection<T>(string collectionName) where T : class
+        {
+            return _database.GetCollection<T>(collectionName);
+        }
+
     }
 }

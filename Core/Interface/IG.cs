@@ -3,7 +3,7 @@
 
 namespace Core.Interface
 {
-    public interface IGenericRepository<T> where T: Product
+    public interface IG<T> where T: class
     {
         Task<T?> GetByIdAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();
