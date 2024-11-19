@@ -1,9 +1,9 @@
 using Core.Interface;
+using ECommerseApp.Middleware;
 using Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 
@@ -16,6 +16,7 @@ var configuration = builder.Configuration;
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddCors();
 
 builder.Services.AddSingleton<MongoDbContext>(sp =>
 {
@@ -35,10 +36,12 @@ if (app.Environment.IsDevelopment())
 }
 
 // Enable authentication and authorization middleware
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
+
 app.MapControllers();
 
 
