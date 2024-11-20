@@ -1,0 +1,6 @@
+<h2>Welcome to {{title}}</h2>
+<div class="product-container">
+    @for (product of products; track product.id) {
+        <app-product-item [product]="product" class="product-item"></app-product-item>
+    }
+</div>
