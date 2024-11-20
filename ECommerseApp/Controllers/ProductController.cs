@@ -10,10 +10,12 @@ namespace ECommerse_App.Controllers
     // public class ProductController (IGenericRepository<Product> _repo) : ControllerBase
     {
         private readonly IGenericRepository<Product> repo;
+        private readonly IProductRepository repoo;
 
-        public ProductController(IGenericRepository<Product> _repo)
+        public ProductController(IGenericRepository<Product> _repo, IProductRepository _repoo)
         {
             repo = _repo;
+            repoo = _repoo;
         }
 
         [HttpGet("")]
@@ -51,7 +53,7 @@ namespace ECommerse_App.Controllers
             // implement code...
             return Ok();
 
-            /*var brands = await repo.GetBrands();
+            /*var brands = await repoo.GetBrands();
             return Ok(brands);*/
         }
 
@@ -61,7 +63,7 @@ namespace ECommerse_App.Controllers
             // implement code...
             return Ok();
 
-            /*var types = await repo.GetTypes();
+            /*var types = await repoo.GetTypes();
             return Ok(types);*/
         }
 

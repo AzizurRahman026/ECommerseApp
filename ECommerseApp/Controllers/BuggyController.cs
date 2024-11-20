@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerseApp.Controllers
 {
+    [ApiController]
+    [Route("Buggy/")]
     public class BuggyController : Controller
     {
         [HttpGet("unauthorized")]

@@ -10,7 +10,7 @@ namespace ECommerseApp.DTOs
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0 and less than double max value...")]
         public double Price { get; set; }
 
-        [Required] public string pictureUrl { get; set; } = string.Empty;
+        [Required] public string PictureUrl { get; set; } = string.Empty;
 
         [Required] public string Type { get; set; } = string.Empty;
 

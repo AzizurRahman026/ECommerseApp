@@ -20,10 +20,19 @@ namespace Infrastructure.Data
             return await collection.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
 
+        // public async Task<IReadOnlyList<T>> ListAllAsync()
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
             var collection = _context.GetCollection<T>("product");
-            return await collection.Find(_ => true).ToListAsync();
+            try
+            {
+                return await collection.Find(_ => true).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<T>();
+            }
         }
 
         public async Task Add(T entity)

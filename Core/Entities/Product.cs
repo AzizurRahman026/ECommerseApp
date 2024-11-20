@@ -10,7 +10,7 @@ namespace Core.Entities
         public required string Name { get; set; }
         public required string Description { get; set; }
         public double Price { get; set; }
-        public required string pictureUrl { get; set; }
+        public required string PictureUrl { get; set; }
         public required string Type { get; set; }
         public required string Brand { get; set; }
         public int QuantityInStock { get; set; }

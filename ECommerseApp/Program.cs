@@ -38,9 +38,9 @@ if (app.Environment.IsDevelopment())
 // Enable authentication and authorization middleware
 
 app.UseHttpsRedirection();
-app.UseMiddleware<ExceptionMiddleware>();
+// app.UseMiddleware<ExceptionMiddleware>();
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4201", "http://localhost:4200"));
 
 app.MapControllers();
 
