@@ -27,10 +27,10 @@ namespace ECommerse_App.Controllers
         [HttpGet("products")]
         public async Task<ActionResult<List<Product>>> GetProducts(string? brand, string? type, string? sort)
         {
-            var res = await repo.ListAllAsync();
-            return Ok(res);
-            /*var products = await repo.GetProducts(brand, type, sort);
-            return Ok(products);*/
+            /*var res = await repo.ListAllAsync();
+            return Ok(res);*/
+            var products = await repoo.GetProducts(brand, type, sort);
+            return Ok(products);
         }
 
         [HttpGet("products/{id}")]
@@ -51,20 +51,20 @@ namespace ECommerse_App.Controllers
         public async Task<IActionResult> GetBrands()
         {
             // implement code...
-            return Ok();
+            // return Ok();
 
-            /*var brands = await repoo.GetBrands();
-            return Ok(brands);*/
+            var brands = await repoo.GetBrands();
+            return Ok(brands);
         }
 
         [HttpGet("types")]
         public async Task<IActionResult> GetTypes()
         {
             // implement code...
-            return Ok();
+            // return Ok();
 
-            /*var types = await repoo.GetTypes();
-            return Ok(types);*/
+            var types = await repoo.GetTypes();
+            return Ok(types);
         }
 
         [HttpPost("addproducts")]

@@ -12,6 +12,7 @@ namespace Core.Interface
         Task Update(T entity);
         Task Remove(int id);
 
+
         Task<bool> SaveAllAsync();
         Task<bool> Exist(int id);
     }

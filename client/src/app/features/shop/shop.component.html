@@ -1,4 +1,9 @@
 <h2>Welcome to {{title}}</h2>
+
+<button class="filter-button" (click)="openFilterDialog()">
+    <mat-icon>filter_list</mat-icon> Filter
+  </button>
+
 <div class="product-container">
     @for (product of products; track product.id) {
         <app-product-item [product]="product" class="product-item"></app-product-item>
